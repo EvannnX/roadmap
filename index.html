@@ -378,60 +378,74 @@ section {
  
 /* === MILESTONES === */
 .milestones {
-  position: relative;
-  padding-left: 32px;
-}
- 
-.milestones::before {
-  content: '';
-  position: absolute;
-  left: 7px; top: 0; bottom: 0;
-  width: 1px;
-  background: linear-gradient(180deg, var(--terracotta), var(--sage), var(--mustard), var(--chi-gold));
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
 }
  
 .ms-item {
   position: relative;
-  padding: 16px 0 28px 24px;
+  padding: 20px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: transform 0.2s, border-color 0.2s;
+}
+ 
+.ms-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(232,224,212,0.2);
 }
  
 .ms-item::before {
   content: '';
   position: absolute;
-  left: -28px; top: 22px;
-  width: 13px; height: 13px;
-  border-radius: 50%;
-  border: 2px solid var(--text-dim);
-  background: var(--bg);
+  top: -1px; left: 20px;
+  width: 32px; height: 3px;
+  background: var(--text-dim);
+  border-radius: 3px;
 }
  
 .ms-item.critical::before {
-  border-color: var(--chi-gold);
-  background: rgba(212,168,67,0.2);
-  box-shadow: 0 0 8px rgba(212,168,67,0.3);
+  background: var(--chi-gold);
+  box-shadow: 0 0 8px rgba(212,168,67,0.5);
 }
  
 .ms-item.submit::before {
-  border-color: var(--sage);
-  background: rgba(122,158,126,0.2);
+  background: var(--sage);
+  box-shadow: 0 0 8px rgba(122,158,126,0.5);
+}
+ 
+.ms-item.critical {
+  background: linear-gradient(135deg, var(--bg2), rgba(212,168,67,0.06));
+  border-color: rgba(212,168,67,0.25);
+}
+ 
+.ms-item.submit {
+  background: linear-gradient(135deg, var(--bg2), rgba(122,158,126,0.06));
+  border-color: rgba(122,158,126,0.15);
 }
  
 .ms-date {
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
   color: var(--mustard);
-  margin-bottom: 4px;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed rgba(232,224,212,0.08);
 }
  
 .ms-title {
   font-size: 15px;
   font-weight: 600;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  line-height: 1.4;
 }
  
 .ms-desc {
   font-size: 13px;
   color: var(--text-dim);
+  line-height: 1.5;
 }
  
 /* === PRIORITY STACK === */
