@@ -1,0 +1,875 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ECHOES Publication Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0F0E0C;
+  --bg2: #1A1815;
+  --bg3: #242019;
+  --text: #E8E0D4;
+  --text-dim: #8A8278;
+  --terracotta: #C4714A;
+  --mustard: #C9A84C;
+  --sage: #7A9E7E;
+  --accent-blue: #5B8FA8;
+  --accent-rose: #B86B77;
+  --chi-gold: #D4A843;
+  --border: rgba(232,224,212,0.08);
+}
+ 
+* { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+ 
+.noise {
+  position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+ 
+header {
+  padding: 60px 40px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+}
+ 
+header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 40px; right: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--terracotta), transparent);
+}
+ 
+.header-top {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  margin-bottom: 12px;
+}
+ 
+h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 48px;
+  font-weight: 400;
+  letter-spacing: -1px;
+  color: var(--text);
+}
+ 
+h1 span { color: var(--terracotta); }
+ 
+.subtitle {
+  font-size: 14px;
+  color: var(--text-dim);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+ 
+.header-meta {
+  display: flex;
+  gap: 32px;
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+ 
+.header-meta .tag {
+  background: var(--bg3);
+  padding: 4px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+}
+ 
+/* === SECTION === */
+section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 48px 40px;
+}
+ 
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+ 
+.section-desc {
+  color: var(--text-dim);
+  font-size: 14px;
+  margin-bottom: 32px;
+}
+ 
+/* === PIPELINE === */
+.pipelines {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 16px;
+}
+ 
+.pipe-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+ 
+.pipe-card:hover { border-color: rgba(232,224,212,0.2); }
+ 
+.pipe-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+ 
+.pipe-card.a::before { background: var(--terracotta); }
+.pipe-card.b::before { background: var(--sage); }
+.pipe-card.c::before { background: var(--accent-blue); }
+ 
+.pipe-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+ 
+.pipe-card.a .pipe-label { color: var(--terracotta); }
+.pipe-card.b .pipe-label { color: var(--sage); }
+.pipe-card.c .pipe-label { color: var(--accent-blue); }
+ 
+.pipe-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+ 
+.pipe-flow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+ 
+.pipe-node {
+  font-size: 11px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  white-space: nowrap;
+  font-family: 'JetBrains Mono', monospace;
+}
+ 
+.pipe-arrow {
+  color: var(--text-dim);
+  font-size: 14px;
+}
+ 
+.pipe-node.chi {
+  background: rgba(212,168,67,0.15);
+  border-color: var(--chi-gold);
+  color: var(--chi-gold);
+  font-weight: 600;
+}
+ 
+/* === TIMELINE === */
+.timeline-container {
+  position: relative;
+  overflow-x: auto;
+  margin: 0 -40px;
+  padding: 0 40px;
+}
+ 
+.timeline-grid {
+  display: grid;
+  grid-template-columns: 140px repeat(6, 1fr);
+  min-width: 1000px;
+  gap: 0;
+}
+ 
+.tl-header {
+  display: contents;
+}
+ 
+.tl-month {
+  padding: 16px 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--mustard);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+  position: relative;
+}
+ 
+.tl-month.deadline-month::after {
+  content: 'CHI 截稿';
+  display: block;
+  font-size: 10px;
+  color: var(--chi-gold);
+  margin-top: 2px;
+}
+ 
+.tl-corner {
+  padding: 16px 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-dim);
+}
+ 
+.tl-row {
+  display: contents;
+}
+ 
+.tl-label {
+  padding: 12px 16px 12px 0;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+}
+ 
+.tl-label .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+ 
+.tl-cell {
+  padding: 10px 4px;
+  border-bottom: 1px solid var(--border);
+  border-left: 1px solid rgba(232,224,212,0.03);
+  position: relative;
+  min-height: 54px;
+}
+ 
+.tl-bar {
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+ 
+.tl-bar:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+ 
+.tl-bar.terracotta { background: rgba(196,113,74,0.2); border: 1px solid rgba(196,113,74,0.4); color: #E8A882; }
+.tl-bar.sage { background: rgba(122,158,126,0.2); border: 1px solid rgba(122,158,126,0.4); color: #A8D4AC; }
+.tl-bar.blue { background: rgba(91,143,168,0.2); border: 1px solid rgba(91,143,168,0.4); color: #8EC5DD; }
+.tl-bar.mustard { background: rgba(201,168,76,0.2); border: 1px solid rgba(201,168,76,0.4); color: #E0CC8A; }
+.tl-bar.rose { background: rgba(184,107,119,0.2); border: 1px solid rgba(184,107,119,0.4); color: #D4A0AA; }
+.tl-bar.gold { background: rgba(212,168,67,0.25); border: 1px solid rgba(212,168,67,0.6); color: var(--chi-gold); font-weight: 600; }
+ 
+.tl-bar .deadline-pin {
+  position: absolute;
+  right: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  opacity: 0.7;
+}
+ 
+/* === CONFERENCES CARDS === */
+.conf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+ 
+.conf-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  transition: border-color 0.3s, transform 0.2s;
+  cursor: default;
+}
+ 
+.conf-card:hover {
+  border-color: rgba(232,224,212,0.2);
+  transform: translateY(-2px);
+}
+ 
+.conf-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+ 
+.conf-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+}
+ 
+.conf-rank {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+}
+ 
+.rank-a { background: rgba(212,168,67,0.2); color: var(--chi-gold); border: 1px solid rgba(212,168,67,0.3); }
+.rank-b { background: rgba(122,158,126,0.15); color: var(--sage); border: 1px solid rgba(122,158,126,0.3); }
+.rank-top { background: rgba(196,113,74,0.2); color: var(--terracotta); border: 1px solid rgba(196,113,74,0.3); }
+.rank-flag { background: rgba(91,143,168,0.2); color: var(--accent-blue); border: 1px solid rgba(91,143,168,0.3); }
+ 
+.conf-type {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+ 
+.conf-deadline {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--mustard);
+  margin-bottom: 12px;
+}
+ 
+.conf-content {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+ 
+.conf-content strong { color: var(--text); font-weight: 500; }
+ 
+.conf-priority {
+  display: flex;
+  gap: 3px;
+  margin-top: 12px;
+}
+ 
+.star { color: var(--mustard); font-size: 12px; }
+.star.off { opacity: 0.2; }
+ 
+/* === MILESTONES === */
+.milestones {
+  position: relative;
+  padding-left: 32px;
+}
+ 
+.milestones::before {
+  content: '';
+  position: absolute;
+  left: 7px; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, var(--terracotta), var(--sage), var(--mustard), var(--chi-gold));
+}
+ 
+.ms-item {
+  position: relative;
+  padding: 16px 0 28px 24px;
+}
+ 
+.ms-item::before {
+  content: '';
+  position: absolute;
+  left: -28px; top: 22px;
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  border: 2px solid var(--text-dim);
+  background: var(--bg);
+}
+ 
+.ms-item.critical::before {
+  border-color: var(--chi-gold);
+  background: rgba(212,168,67,0.2);
+  box-shadow: 0 0 8px rgba(212,168,67,0.3);
+}
+ 
+.ms-item.submit::before {
+  border-color: var(--sage);
+  background: rgba(122,158,126,0.2);
+}
+ 
+.ms-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--mustard);
+  margin-bottom: 4px;
+}
+ 
+.ms-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+ 
+.ms-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+}
+ 
+/* === PRIORITY STACK === */
+.priority-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 700px;
+}
+ 
+.pri-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+ 
+.pri-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-dim);
+  width: 20px;
+  text-align: right;
+  flex-shrink: 0;
+}
+ 
+.pri-bar {
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: transform 0.2s;
+}
+ 
+.pri-bar:hover { transform: translateX(4px); }
+ 
+.pri-bar.w100 { width: 100%; }
+.pri-bar.w85 { width: 85%; }
+.pri-bar.w70 { width: 70%; }
+.pri-bar.w60 { width: 60%; }
+.pri-bar.w50 { width: 50%; }
+.pri-bar.w40 { width: 40%; }
+.pri-bar.w30 { width: 30%; }
+.pri-bar.w25 { width: 25%; }
+.pri-bar.w20 { width: 20%; }
+ 
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .pipelines { grid-template-columns: 1fr; }
+  .conf-grid { grid-template-columns: 1fr; }
+  header { padding: 40px 20px 30px; }
+  section { padding: 32px 20px; }
+  h1 { font-size: 32px; }
+}
+ 
+/* === ANIMATIONS === */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+ 
+.anim { animation: fadeUp 0.6s ease-out both; }
+.d1 { animation-delay: 0.1s; }
+.d2 { animation-delay: 0.2s; }
+.d3 { animation-delay: 0.3s; }
+.d4 { animation-delay: 0.4s; }
+ 
+.divider {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+.divider hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+ 
+<header>
+  <div class="header-top">
+    <h1><span>ECHOES</span> Publication Roadmap</h1>
+  </div>
+  <div class="subtitle">2026.04 — 2027.05 · 发表策略全景规划</div>
+  <div class="header-meta">
+    <span class="tag">终极目标: CHI 2027</span>
+    <span class="tag">截稿: 2026.09.01</span>
+    <span class="tag">数据采集: 5-6月</span>
+    <span class="tag">3人团队</span>
+  </div>
+</header>
+ 
+<!-- === PIPELINES === -->
+<section>
+  <div class="section-title anim">三条并行管道</div>
+  <div class="section-desc anim d1">每条管道独立推进，9月1日汇入 CHI 2027 综合论文</div>
+ 
+  <div class="pipelines">
+    <div class="pipe-card a anim d1">
+      <div class="pipe-label">Pipeline A</div>
+      <div class="pipe-name">交互范式 + 用户研究</div>
+      <div style="font-size:13px;color:var(--text-dim)">Look & Ask 范式定义、Formative 街访、Summative 对比实验、Persona Engine</div>
+      <div class="pipe-flow">
+        <span class="pipe-node">ICMI Blue Sky</span>
+        <span class="pipe-arrow">→</span>
+        <span class="pipe-node">ICMI LBR</span>
+        <span class="pipe-arrow">→</span>
+        <span class="pipe-node">用户实验</span>
+        <span class="pipe-arrow">→</span>
+        <span class="pipe-node chi">CHI 2027</span>
+      </div>
+    </div>
+ 
+    <div class="pipe-card b anim d2">
+      <div class="pipe-label">Pipeline B</div>
+      <div class="pipe-name">RAG 史实校准</div>
+      <div style="font-size:13px;color:var(--text-dim)">文化遗产知识库构建、向量检索 + 史实验证双层防护、幻觉率消融实验</div>
+      <div class="pipe-flow">
+        <span class="pipe-node">搭RAG管道</span>
+        <span class="pipe-arrow">→</span>
+        <span class="pipe-node">EMNLP Short</span>
+        <span class="pipe-arrow">→</span>
+        <span class="pipe-node chi">CHI 2027</span>
+      </div>
+    </div>
+ 
+    <div class="pipe-card c anim d3">
+      <div class="pipe-label">Pipeline C</div>
+      <div class="pipe-name">系统工程</div>
+      <div style="font-size:13px;color:var(--text-dim)">Rokid SDK 集成、StreamingVLM 部署、端到端 pipeline、延迟优化</div>
+      <div class="pipe-flow">
+        <span class="pipe-node">ISMAR Poster</span>
+        <span class="pipe-arrow">→</span>
+        <span class="pipe-node">ICMI Demo</span>
+        <span class="pipe-arrow">→</span>
+        <span class="pipe-node">ISS 系统论文</span>
+        <span class="pipe-arrow">→</span>
+        <span class="pipe-node chi">CHI 2027</span>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<div class="divider"><hr></div>
+ 
+<!-- === TIMELINE === -->
+<section>
+  <div class="section-title anim">时间线</div>
+  <div class="section-desc anim d1">所有投稿、实验、写作任务的月度分布</div>
+ 
+  <div class="timeline-container">
+    <div class="timeline-grid">
+      <!-- Header -->
+      <div class="tl-corner">工作流</div>
+      <div class="tl-month">4月</div>
+      <div class="tl-month">5月</div>
+      <div class="tl-month">6月</div>
+      <div class="tl-month">7月</div>
+      <div class="tl-month">8月</div>
+      <div class="tl-month deadline-month">9月</div>
+ 
+      <!-- Row: 系统开发 -->
+      <div class="tl-label"><span class="dot" style="background:var(--accent-blue)"></span>系统开发</div>
+      <div class="tl-cell"><div class="tl-bar blue">Rokid SDK + VLM</div></div>
+      <div class="tl-cell"><div class="tl-bar blue">端到端集成 → 可跑被试</div></div>
+      <div class="tl-cell"><div class="tl-bar blue" style="opacity:0.5">维护 + 性能数据</div></div>
+      <div class="tl-cell"></div>
+      <div class="tl-cell"></div>
+      <div class="tl-cell"></div>
+ 
+      <!-- Row: RAG 管道 -->
+      <div class="tl-label"><span class="dot" style="background:var(--sage)"></span>RAG 管道</div>
+      <div class="tl-cell"><div class="tl-bar sage">知识库 + 向量索引</div></div>
+      <div class="tl-cell"><div class="tl-bar sage">消融实验 + 写 EMNLP</div></div>
+      <div class="tl-cell"></div>
+      <div class="tl-cell"><div class="tl-bar sage" style="opacity:0.5">EMNLP rebuttal</div></div>
+      <div class="tl-cell"></div>
+      <div class="tl-cell"></div>
+ 
+      <!-- Row: 用户实验 -->
+      <div class="tl-label"><span class="dot" style="background:var(--terracotta)"></span>用户实验</div>
+      <div class="tl-cell"><div class="tl-bar terracotta" style="opacity:0.4">实验设计</div></div>
+      <div class="tl-cell"><div class="tl-bar terracotta">街访 + Summative 启动</div></div>
+      <div class="tl-cell"><div class="tl-bar terracotta">数据采集收尾 ✓</div></div>
+      <div class="tl-cell"><div class="tl-bar terracotta" style="opacity:0.5">数据分析</div></div>
+      <div class="tl-cell"></div>
+      <div class="tl-cell"></div>
+ 
+      <!-- Row: 论文写作 -->
+      <div class="tl-label"><span class="dot" style="background:var(--mustard)"></span>论文写作</div>
+      <div class="tl-cell"><div class="tl-bar mustard">Blue Sky</div></div>
+      <div class="tl-cell"><div class="tl-bar mustard">EMNLP</div></div>
+      <div class="tl-cell"><div class="tl-bar mustard">Demo + ISMAR</div></div>
+      <div class="tl-cell"><div class="tl-bar mustard">ISS 系统论文</div></div>
+      <div class="tl-cell"><div class="tl-bar gold" style="width:100%">CHI 2027 综合论文</div></div>
+      <div class="tl-cell"><div class="tl-bar gold" style="width:100%">CHI 打磨 → 9/1 ✓</div></div>
+    </div>
+  </div>
+</section>
+ 
+<div class="divider"><hr></div>
+ 
+<!-- === CONFERENCES === -->
+<section>
+  <div class="section-title anim">投稿地图</div>
+  <div class="section-desc anim d1">按截稿日排序，从近到远</div>
+ 
+  <div class="conf-grid">
+ 
+    <div class="conf-card anim d1">
+      <div class="conf-top">
+        <div class="conf-name">ICMI Blue Sky</div>
+        <span class="conf-rank rank-b">CCF-B</span>
+      </div>
+      <div class="conf-type">4页 · 范式愿景论文 · Naples, Italy</div>
+      <div class="conf-deadline">截稿 2026.05.08</div>
+      <div class="conf-content"><strong>Look & Ask 交互范式愿景。</strong>不需要实现，不需要实验。用已有的架构图和设计逻辑写 4 页前瞻性论文。成本最低，收益高。</div>
+      <div class="conf-priority"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star off">★</span><span class="star off">★</span></div>
+    </div>
+ 
+    <div class="conf-card anim d2">
+      <div class="conf-top">
+        <div class="conf-name">EMNLP 2026</div>
+        <span class="conf-rank rank-top">NLP 顶会</span>
+      </div>
+      <div class="conf-type">4页 Short · ARR 提交 · RAG 系统论文</div>
+      <div class="conf-deadline">截稿 2026.05.25 (ARR)</div>
+      <div class="conf-content"><strong>文化遗产 RAG 史实校准。</strong>向量检索 + 史实验证双层防护，消融实验对比 baseline LLM vs RAG 的幻觉率。NLP 社区的 niche 创新。</div>
+      <div class="conf-priority"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star off">★</span><span class="star off">★</span></div>
+    </div>
+ 
+    <div class="conf-card anim d3">
+      <div class="conf-top">
+        <div class="conf-name">ISMAR Poster</div>
+        <span class="conf-rank rank-flag">IEEE AR 旗舰</span>
+      </div>
+      <div class="conf-type">2页 · Poster · Bari, Italy</div>
+      <div class="conf-deadline">截稿 2026.06.07</div>
+      <div class="conf-content"><strong>StreamingVLM + Rokid 眼镜原型。</strong>AR 技术实现的短摘要，强调真实硬件部署。在 ISMAR 社区有辨识度。</div>
+      <div class="conf-priority"><span class="star">★</span><span class="star">★</span><span class="star off">★</span><span class="star off">★</span><span class="star off">★</span></div>
+    </div>
+ 
+    <div class="conf-card anim d4">
+      <div class="conf-top">
+        <div class="conf-name">ICMI Demo</div>
+        <span class="conf-rank rank-b">CCF-B</span>
+      </div>
+      <div class="conf-type">3页 · 系统演示 · Naples, Italy</div>
+      <div class="conf-deadline">截稿 2026.06.21</div>
+      <div class="conf-content"><strong>Echoes 端到端系统演示。</strong>交互流程 + 架构图 + demo 视频。重点是多模态交互设计而非底层技术。可在 ICMI 现场 live demo。</div>
+      <div class="conf-priority"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star off">★</span><span class="star off">★</span></div>
+    </div>
+ 
+    <div class="conf-card anim d1">
+      <div class="conf-top">
+        <div class="conf-name">ICMI LBR</div>
+        <span class="conf-rank rank-b">CCF-B</span>
+      </div>
+      <div class="conf-type">4页 · Late-Breaking Results · Naples, Italy</div>
+      <div class="conf-deadline">截稿 2026.06.21</div>
+      <div class="conf-content"><strong>Persona Engine 技术初步结果。</strong>Prompt 框架 + 对话风格一致性自动化量化。可含初步用户反馈。有余力才做。</div>
+      <div class="conf-priority"><span class="star">★</span><span class="star">★</span><span class="star off">★</span><span class="star off">★</span><span class="star off">★</span></div>
+    </div>
+ 
+    <div class="conf-card anim d2">
+      <div class="conf-top">
+        <div class="conf-name">ACM ISS</div>
+        <span class="conf-rank rank-b">PACM HCI</span>
+      </div>
+      <div class="conf-type">8-10页 · 系统论文 · Turin, Italy</div>
+      <div class="conf-deadline">截稿 2026.07.22</div>
+      <div class="conf-content"><strong>完整技术系统论文。</strong>VLM 适配 + RAG 协同 + 延迟 benchmark。发表在 PACM HCI（与 CHI 同级期刊）。可含初步用户数据。结果 10/7 出。</div>
+      <div class="conf-priority"><span class="star">★</span><span class="star">★</span><span class="star off">★</span><span class="star off">★</span><span class="star off">★</span></div>
+    </div>
+ 
+    <div class="conf-card anim d3" style="border-color: rgba(212,168,67,0.3); background: linear-gradient(135deg, var(--bg2), rgba(212,168,67,0.05));">
+      <div class="conf-top">
+        <div class="conf-name" style="color:var(--chi-gold)">CHI 2027</div>
+        <span class="conf-rank rank-a">CCF-A</span>
+      </div>
+      <div class="conf-type">无页数限制 · 综合系统论文 · Pittsburgh, USA</div>
+      <div class="conf-deadline" style="color:var(--chi-gold)">截稿 2026.09.01</div>
+      <div class="conf-content"><strong>终极目标。</strong>Formative Study → 系统架构 → Persona Engine → Summative Evaluation。整合所有前期工作，引用 ICMI/EMNLP/ISS 作为已验证的子贡献。</div>
+      <div class="conf-priority"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+    </div>
+ 
+    <div class="conf-card anim d4" style="opacity:0.6">
+      <div class="conf-top">
+        <div class="conf-name">远期候选</div>
+        <span class="conf-rank rank-b" style="opacity:0.5">多个</span>
+      </div>
+      <div class="conf-type">CHI 之后再考虑</div>
+      <div class="conf-deadline" style="opacity:0.5">2026.10 - 2027</div>
+      <div class="conf-content"><strong>IUI 2027</strong>（Persona Engine 用户研究）· <strong>CSCW Rolling</strong>（田野设计研究，PACM HCI）· <strong>CIKM / COLING</strong>（EMNLP 备选）</div>
+      <div class="conf-priority"><span class="star">★</span><span class="star off">★</span><span class="star off">★</span><span class="star off">★</span><span class="star off">★</span></div>
+    </div>
+ 
+  </div>
+</section>
+ 
+<div class="divider"><hr></div>
+ 
+<!-- === MILESTONES === -->
+<section>
+  <div class="section-title anim">关键里程碑</div>
+  <div class="section-desc anim d1">决策节点与检查清单</div>
+ 
+  <div class="milestones anim d2">
+    <div class="ms-item submit">
+      <div class="ms-date">4月13日</div>
+      <div class="ms-title">ICMI Blue Sky Abstract 提交</div>
+      <div class="ms-desc">确认投/不投，提交 title + abstract + metadata</div>
+    </div>
+    <div class="ms-item">
+      <div class="ms-date">4月30日</div>
+      <div class="ms-title">RAG 知识库搭建完成</div>
+      <div class="ms-desc">南京东路建筑档案数字化、分 chunk、向量索引就绪</div>
+    </div>
+    <div class="ms-item submit">
+      <div class="ms-date">5月8日</div>
+      <div class="ms-title">ICMI Blue Sky 全文提交</div>
+      <div class="ms-desc">4页范式愿景论文 ✓</div>
+    </div>
+    <div class="ms-item critical">
+      <div class="ms-date">5月中旬</div>
+      <div class="ms-title">系统达到可跑被试状态</div>
+      <div class="ms-desc">端到端 pipeline 可运行，启动 Formative 街访 + Summative 实验</div>
+    </div>
+    <div class="ms-item submit">
+      <div class="ms-date">5月25日</div>
+      <div class="ms-title">EMNLP ARR 投稿</div>
+      <div class="ms-desc">RAG 史实校准 Short Paper 提交；5/27 前全员完成 reviewer 注册</div>
+    </div>
+    <div class="ms-item submit">
+      <div class="ms-date">6月7日</div>
+      <div class="ms-title">ISMAR Poster 提交</div>
+      <div class="ms-desc">StreamingVLM + Rokid 原型 2 页短文</div>
+    </div>
+    <div class="ms-item submit">
+      <div class="ms-date">6月21日</div>
+      <div class="ms-title">ICMI Demo [+ LBR] 提交</div>
+      <div class="ms-desc">系统演示 3 页 + 可选 Persona Engine LBR 4 页</div>
+    </div>
+    <div class="ms-item critical">
+      <div class="ms-date">6月底</div>
+      <div class="ms-title">全部实验数据采集完成</div>
+      <div class="ms-desc">Formative 街访 20-30 人 + Summative 对比实验 30-50 人 ✓</div>
+    </div>
+    <div class="ms-item">
+      <div class="ms-date">7月7-13日</div>
+      <div class="ms-title">EMNLP Author Response</div>
+      <div class="ms-desc">ARR rebuttal 期，回应审稿人意见</div>
+    </div>
+    <div class="ms-item submit">
+      <div class="ms-date">7月22日</div>
+      <div class="ms-title">ISS Summer Round 提交</div>
+      <div class="ms-desc">系统技术论文 8-10 页，发表在 PACM HCI</div>
+    </div>
+    <div class="ms-item">
+      <div class="ms-date">7月30日</div>
+      <div class="ms-title">EMNLP Meta Review</div>
+      <div class="ms-desc">评审结果发布；8/2 EMNLP commitment deadline</div>
+    </div>
+    <div class="ms-item">
+      <div class="ms-date">8月20日</div>
+      <div class="ms-title">EMNLP 录用通知</div>
+      <div class="ms-desc">若被拒 → 转投 CIKM / COLING；若接收 → CHI 可引用</div>
+    </div>
+    <div class="ms-item critical">
+      <div class="ms-date" style="color:var(--chi-gold)">9月1日</div>
+      <div class="ms-title" style="color:var(--chi-gold)">CHI 2027 截稿</div>
+      <div class="ms-desc">综合系统论文提交 — 整合所有前期成果 + 完整用户实验 ✓</div>
+    </div>
+  </div>
+</section>
+ 
+<div class="divider"><hr></div>
+ 
+<!-- === PRIORITY === -->
+<section>
+  <div class="section-title anim">优先级排序</div>
+  <div class="section-desc anim d1">如果必须砍，从底部开始</div>
+ 
+  <div class="priority-stack anim d2">
+    <div class="pri-row">
+      <div class="pri-num">1</div>
+      <div class="pri-bar gold w100">CHI 2027 综合论文 — 绝对不砍</div>
+    </div>
+    <div class="pri-row">
+      <div class="pri-num">2</div>
+      <div class="pri-bar sage w85">EMNLP Short — 独立完成，不占其他人带宽</div>
+    </div>
+    <div class="pri-row">
+      <div class="pri-num">3</div>
+      <div class="pri-bar terracotta w70">ICMI Blue Sky — 成本极低，你一人写完</div>
+    </div>
+    <div class="pri-row">
+      <div class="pri-num">4</div>
+      <div class="pri-bar blue w60">ICMI Demo — 系统跑通后 3 页即可</div>
+    </div>
+    <div class="pri-row">
+      <div class="pri-num">5</div>
+      <div class="pri-bar blue w50" style="opacity:0.7">ISMAR Poster — 2 页，顺手写</div>
+    </div>
+    <div class="pri-row">
+      <div class="pri-num">6</div>
+      <div class="pri-bar mustard w40" style="opacity:0.5">ISS 技术论文 — 如果 CHI 压力大可放弃</div>
+    </div>
+    <div class="pri-row">
+      <div class="pri-num">7</div>
+      <div class="pri-bar rose w30" style="opacity:0.4">ICMI LBR — 有余力才做</div>
+    </div>
+    <div class="pri-row">
+      <div class="pri-num">8</div>
+      <div class="pri-bar rose w20" style="opacity:0.3">IUI / CSCW — CHI 之后再考虑</div>
+    </div>
+  </div>
+ 
+  <div style="margin-top:40px; padding:24px; background:var(--bg2); border:1px solid rgba(212,168,67,0.2); border-radius:12px; max-width:700px;">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--chi-gold); letter-spacing:2px; margin-bottom:8px;">成果预期</div>
+    <div style="font-size:14px; line-height:1.8;">
+      <span style="color:var(--text-dim)">保底 3 篇：</span>ICMI Blue Sky + EMNLP + CHI<br>
+      <span style="color:var(--text-dim)">正常 5 篇：</span>+ ICMI Demo + ISMAR Poster<br>
+      <span style="color:var(--text-dim)">理想 7 篇：</span>+ ISS + ICMI LBR<br>
+      <span style="color:var(--text-dim)">远期 +2 篇：</span>IUI 2027 + CSCW Rolling
+    </div>
+  </div>
+</section>
+ 
+<footer style="padding:40px; text-align:center; color:var(--text-dim); font-size:12px; font-family:'JetBrains Mono',monospace; border-top:1px solid var(--border); max-width:1400px; margin:0 auto;">
+  ECHOES · Enhancing Urban Heritage Experiences via Gaze-Driven Multimodal AI Agents · Updated 2026.04.01
+</footer>
+ 
+</body>
+</html>
+ 
